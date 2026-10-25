@@ -1,5 +1,5 @@
 /**
- * Location d'évènement Sherbrooke — /catalogue (meme tenant Supabase que Salle 906 Galt Est,
+ * 906 Réceptions — /catalogue (meme tenant Supabase que Salle 906 Galt Est,
  * memes tables equipment_quotes/equipment_quote_items, aucun inventaire separe)
  *
  * Depuis la Phase 3, chaque demande est enregistrée dans Supabase (table
@@ -123,7 +123,7 @@ function validatePayload(payload){
   const eventDate = singleLine(payload.eventDate, 20);
   const comments = longText(payload.comments, MAX_LONG);
   const deliveryMode = payload.deliveryMode === 'livraison' ? 'livraison' : 'ramassage';
-  const source = singleLine(payload.source, MAX_SHORT) || "Landing /catalogue — Location d'évènement Sherbrooke";
+  const source = singleLine(payload.source, MAX_SHORT) || "Landing /catalogue — 906 Réceptions";
   const wantsDecoration = payload.wantsDecoration === true;
   const wantsOrganisation = payload.wantsOrganisation === true;
 
@@ -340,7 +340,7 @@ function buildAdminEmailHtml(p, quoteRef, submittedAt, pricedItems, subtotalCent
   const row = (label, value) => `<tr><td style="padding:4px 12px 4px 0;color:#6b6656;font-size:13px;white-space:nowrap;vertical-align:top">${esc(label)}</td><td style="padding:4px 0;font-size:14px;color:#16140f">${esc(value) || '—'}</td></tr>`;
   return `
   <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;color:#16140f">
-    <h2 style="font-size:18px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #c9a463;padding-bottom:10px">Nouvelle demande — Location d'évènement Sherbrooke</h2>
+    <h2 style="font-size:18px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #c9a463;padding-bottom:10px">Nouvelle demande — 906 Réceptions</h2>
     <p style="font-family:'Courier New',monospace;font-size:13px;color:#6b6656">Référence : <strong>${esc(quoteRef)}</strong> &nbsp;·&nbsp; Statut : <strong>En attente de validation</strong></p>
     <table style="border-collapse:collapse;width:100%;margin-top:14px">
       ${row('Nom', p.name)}
@@ -372,7 +372,7 @@ function buildClientEmailHtml(p, quoteRef, pricedItems, subtotalCents){
   <div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#16140f">
     <h2 style="font-size:18px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #c9a463;padding-bottom:10px">Votre demande a bien été reçue</h2>
     <p style="font-size:14px;line-height:1.6">Bonjour ${esc(p.name.split(' ')[0] || '')},</p>
-    <p style="font-size:14px;line-height:1.6">Merci pour votre demande auprès de <strong>Location d'évènement Sherbrooke</strong>. Voici un résumé :</p>
+    <p style="font-size:14px;line-height:1.6">Merci pour votre demande auprès de <strong>906 Réceptions</strong>. Voici un résumé :</p>
     <p style="font-family:'Courier New',monospace;font-size:13px;color:#6b6656">Référence : <strong>${esc(quoteRef)}</strong></p>
     ${pricedItems.length ? `
     <h3 style="font-size:14px;margin-top:18px;border-bottom:1px solid #e5e0d3;padding-bottom:8px">Équipements demandés</h3>
@@ -384,14 +384,14 @@ function buildClientEmailHtml(p, quoteRef, pricedItems, subtotalCents){
       l'inventaire réel et vous enverra une soumission précise (prix, frais éventuels et conditions) par courriel.
     </p>
     <p style="font-size:14px;line-height:1.6;margin-top:18px">Une question en attendant ? Contactez-nous au <a href="tel:+18196789242" style="color:#c9a463">(819) 678-9242</a> ou par retour de ce courriel.</p>
-    <p style="font-size:13px;color:#6b6656;margin-top:24px">Location d'évènement Sherbrooke</p>
+    <p style="font-size:13px;color:#6b6656;margin-top:24px">906 Réceptions</p>
   </div>`;
 }
 
 async function sendResendEmail({ to, subject, html }){
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error('RESEND_API_KEY manquant dans Netlify — configurez-le pour activer l\'email.');
-  const from = process.env.RESEND_FROM || "Location d'évènement Sherbrooke <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM || "906 Réceptions <onboarding@resend.dev>";
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -465,7 +465,7 @@ exports.handler = async (event) => {
     try {
       await sendResendEmail({
         to: payload.email,
-        subject: `Votre demande ${quoteRef} est en cours d'examen — Location d'évènement Sherbrooke`,
+        subject: `Votre demande ${quoteRef} est en cours d'examen — 906 Réceptions`,
         html: buildClientEmailHtml(payload, quoteRef, priced, subtotalCents),
       });
     } catch (err) {

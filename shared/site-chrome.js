@@ -1,5 +1,5 @@
 /**
- * Location d'évènement Sherbrooke — identité et interface commune.
+ * 906 Réceptions — identité et interface commune.
  *
  * Centralise le nom de marque, le téléphone et le courriel à un seul
  * endroit (BRAND) : toutes les pages injectent le header et le footer
@@ -8,13 +8,13 @@
  * dans une page — si besoin d'un autre nom, change BRAND.name.
  */
 const BRAND = {
-  name: "Location d'évènement Sherbrooke",
-  nameLead: "Location d'évènement",
-  nameAccent: 'Sherbrooke',
+  name: '906 Réceptions',
+  tagline: "Location d'équipements · Décoration · Organisation d'événements",
+  logo: '/logo-906-receptions.png',
   phoneDisplay: '(819) 678-9242',
   phoneHref: 'tel:+18196789242',
   email: 'reservations@salle906galtest.ca',
-  region: 'Sherbrooke et environs',
+  region: 'Sherbrooke et en Estrie',
 };
 
 const CART_KEY = 'les_cart_v1';
@@ -40,7 +40,7 @@ function renderSiteChrome(activeKey){
 
   if (navEl){
     navEl.innerHTML = `
-      <a class="logo" href="/">${BRAND.nameLead} <b>${BRAND.nameAccent}</b></a>
+      <a class="logo" href="/"><img src="${BRAND.logo}" alt="" class="logo-mark"><span>${BRAND.name}</span></a>
       <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Ouvrir le menu">
         <span></span><span></span><span></span>
       </button>
@@ -70,8 +70,8 @@ function renderSiteChrome(activeKey){
     footEl.innerHTML = `
       <div class="wrap footer-grid">
         <div>
-          <div class="footer-brand">${BRAND.name}</div>
-          <p>${BRAND.region} · Location d'équipements, décoration et organisation d'événements.</p>
+          <div class="footer-brand"><img src="${BRAND.logo}" alt="" class="footer-logo-mark">${BRAND.name}</div>
+          <p>${BRAND.tagline}<br>${BRAND.region}.</p>
         </div>
         <div class="footer-links">
           ${NAV_ITEMS.map(i => `<a href="${i.href}">${i.label}</a>`).join('')}

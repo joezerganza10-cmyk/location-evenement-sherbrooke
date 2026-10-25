@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Catalogue d'équipements à louer | Location d'évènement Sherbrooke</title>
+<title>Catalogue d'équipements à louer | 906 Réceptions</title>
 <meta name="description" content="Chaises, tables et sonorisation à louer à Sherbrooke. Recherchez, filtrez, ajoutez à votre sélection et demandez une soumission gratuite — ajoutez aussi une demande de décoration ou d'organisation sans ressaisir vos coordonnées.">
-<link rel="canonical" href="https://locationevenementsherbrooke.ca/equipements">
+<link rel="canonical" href="https://glittering-cocada-9d4d8d.netlify.app/equipements">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared/site-base.css">
@@ -28,6 +28,7 @@
 .cat-hero{background:var(--ink);color:var(--cream);padding:56px clamp(20px,5vw,56px) 44px;text-align:center}
 .cat-hero h1{font-size:clamp(26px,3.6vw,38px)}
 .cat-hero p{max-width:620px;margin:14px auto 0;color:var(--text-dim);font-size:14.5px;line-height:1.6}
+.eq-card.is-highlighted{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,137,79,.25)}
 </style>
 </head>
 <body>
@@ -56,7 +57,7 @@
 </section>
 
 <!-- ============ PANIER ============ -->
-<section id="cart-section" class="on-ink2">
+<section id="cart-section" style="background:var(--cream-2)">
   <div class="section-head">
     <div class="eyebrow">Votre sélection</div>
     <h2>Votre demande d'équipements</h2>
@@ -185,7 +186,7 @@
 
       <label class="check-row">
         <input type="checkbox" id="c-consent" required>
-        <span>Je comprends que cette demande est une soumission, pas une réservation confirmée, et que mes renseignements seront traités par Location d'évènement Sherbrooke — et transmis à nos équipes partenaires uniquement si je demande une proposition de décoration ou d'organisation.</span>
+        <span>Je comprends que cette demande est une soumission, pas une réservation confirmée, et que mes renseignements seront traités par 906 Réceptions — et transmis à nos équipes partenaires uniquement si je demande une proposition de décoration ou d'organisation.</span>
       </label>
 
       <button type="submit" class="btn" id="quote-submit" style="width:100%;justify-content:center">Envoyer ma demande de soumission</button>
@@ -295,7 +296,7 @@ function renderCatalog(){
     return;
   }
   el.innerHTML = items.map(i => `
-    <div class="eq-card">
+    <div class="eq-card" id="eq-card-${i.id}">
       <div class="eq-photo">
         ${i.photo ? `<img src="${i.photo}" alt="${i.name}" loading="lazy" class="${i.photoCropLeft ? 'crop-left' : ''}" onerror="this.style.display='none'">` : `
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5.5-5.5a2 2 0 00-2.8 0L3 19"/></svg>
@@ -512,7 +513,7 @@ document.getElementById('quote-form').addEventListener('submit', async (e) => {
     wantsDecoration, wantsOrganisation,
     deliveryMode: cart.length ? deliveryMode : 'ramassage', deliveryInfo,
     items: cart.map(c => ({ itemId: c.itemId, name: c.name, unit: c.unit, qty: c.qty })),
-    source: "Équipements — Location d'évènement Sherbrooke",
+    source: "Équipements — 906 Réceptions",
     website: honeypot,
     formLoadedAt: FORM_LOADED_AT,
   };
@@ -546,14 +547,30 @@ function initReveal(){
   els.forEach(el => io.observe(el));
 }
 
+function applyUrlParams(){
+  const params = new URLSearchParams(window.location.search);
+  const filterParam = params.get('filter');
+  if (filterParam) activeFilterId = filterParam;
+  renderFilters();
+  renderCatalog();
+  const itemParam = params.get('item');
+  if (itemParam){
+    const card = document.getElementById(`eq-card-${itemParam}`);
+    if (card){
+      card.scrollIntoView({ behavior:'smooth', block:'center' });
+      card.classList.add('is-highlighted');
+      setTimeout(() => card.classList.remove('is-highlighted'), 2600);
+    }
+  }
+}
+
 renderSiteChrome('equipements');
-renderFilters();
-renderCatalog();
 renderCart();
 renderCartFloat();
 renderRequestSummary();
 initReveal();
-loadCatalogFromSupabase();
+loadCatalogFromSupabase().then(applyUrlParams).catch(applyUrlParams);
+applyUrlParams();
 </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /**
- * Location d'évènement Sherbrooke — Génération PDF d'une soumission (admin).
+ * 906 Réceptions — Génération PDF d'une soumission (admin).
  * Utilise kreovya/lib/pdf.js (générateur maison, aucune dépendance npm).
  *
  * DÉPENDANCE NON ENCORE DÉPLOYÉE : cette fonction exige une session admin
@@ -65,8 +65,8 @@ exports.handler = async (event) => {
     const doc = createPdfDoc();
     let y = 740;
 
-    doc.text(50, y, 'LOCATION D’ÉVÈNEMENT SHERBROOKE', { size: 16, bold: true }); y -= 16;
-    doc.text(50, y, 'Location & décoration événementielle', { size: 11 }); y -= 14;
+    doc.text(50, y, '906 RÉCEPTIONS', { size: 16, bold: true }); y -= 16;
+    doc.text(50, y, "Location d'équipements · Décoration · Organisation d'événements", { size: 11 }); y -= 14;
     doc.text(50, y, 'Sherbrooke, QC', { size: 9.5 }); y -= 11;
     doc.text(50, y, '(819) 678-9242 · reservations@salle906galtest.ca', { size: 9.5 }); y -= 24;
 

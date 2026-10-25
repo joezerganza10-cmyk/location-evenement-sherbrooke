@@ -1,5 +1,5 @@
 /**
- * Location d'évènement Sherbrooke — /decoration
+ * 906 Réceptions — /decoration
  *
  * Demande de soumission personnalisée pour le service de décoration
  * événementielle. AUCUN tarif, forfait ni disponibilité n'est calculé ou
@@ -89,7 +89,7 @@ function generateQuoteRef(){
 async function sendResendEmail({ to, subject, html }){
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error('RESEND_API_KEY manquant dans Netlify.');
-  const from = process.env.RESEND_FROM || "Location d'évènement Sherbrooke <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM || "906 Réceptions <onboarding@resend.dev>";
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
@@ -107,7 +107,7 @@ function buildAdminEmailHtml(p, quoteRef, submittedAt){
   const row = (label, value) => `<tr><td style="padding:4px 12px 4px 0;color:#6b6656;font-size:13px;white-space:nowrap;vertical-align:top">${esc(label)}</td><td style="padding:4px 0;font-size:14px;color:#16140f">${esc(value) || '—'}</td></tr>`;
   return `
   <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;color:#16140f">
-    <h2 style="font-size:18px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #c9a463;padding-bottom:10px">Nouvelle demande — Décoration — Location d'évènement Sherbrooke</h2>
+    <h2 style="font-size:18px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #c9a463;padding-bottom:10px">Nouvelle demande — Décoration — 906 Réceptions</h2>
     <p style="font-family:'Courier New',monospace;font-size:13px;color:#6b6656">Référence : <strong>${esc(quoteRef)}</strong></p>
     <table style="border-collapse:collapse;width:100%;margin-top:14px">
       ${row('Nom', p.name)}
@@ -130,7 +130,7 @@ function buildClientEmailHtml(p, quoteRef){
   <div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#16140f">
     <h2 style="font-size:18px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #c9a463;padding-bottom:10px">Votre demande de décoration a bien été reçue</h2>
     <p style="font-size:14px;line-height:1.6">Bonjour ${esc(p.name.split(' ')[0] || '')},</p>
-    <p style="font-size:14px;line-height:1.6">Merci pour votre demande auprès de <strong>Location d'évènement Sherbrooke</strong>. Voici un résumé :</p>
+    <p style="font-size:14px;line-height:1.6">Merci pour votre demande auprès de <strong>906 Réceptions</strong>. Voici un résumé :</p>
     <p style="font-family:'Courier New',monospace;font-size:13px;color:#6b6656">Référence : <strong>${esc(quoteRef)}</strong></p>
     <table style="border-collapse:collapse;width:100%;margin-top:10px">
       <tr><td style="padding:4px 12px 4px 0;color:#6b6656;font-size:13px">Type d'événement</td><td style="font-size:14px">${esc(p.eventType)}</td></tr>
@@ -143,7 +143,7 @@ function buildClientEmailHtml(p, quoteRef){
       et vous contactera directement.
     </p>
     <p style="font-size:14px;line-height:1.6;margin-top:18px">Une question en attendant ? Contactez-nous au <a href="tel:+18196789242" style="color:#c9a463">(819) 678-9242</a> ou par retour de ce courriel.</p>
-    <p style="font-size:13px;color:#6b6656;margin-top:24px">Location d'évènement Sherbrooke</p>
+    <p style="font-size:13px;color:#6b6656;margin-top:24px">906 Réceptions</p>
   </div>`;
 }
 
@@ -202,7 +202,7 @@ exports.handler = async (event) => {
     try {
       await sendResendEmail({
         to: payload.email,
-        subject: `Votre demande ${quoteRef} est en cours d'examen — Location d'évènement Sherbrooke`,
+        subject: `Votre demande ${quoteRef} est en cours d'examen — 906 Réceptions`,
         html: buildClientEmailHtml(payload, quoteRef),
       });
     } catch (err) {
