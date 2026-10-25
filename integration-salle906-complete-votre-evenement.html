@@ -1,0 +1,44 @@
+<!--
+  COMPOSANT « Complétez votre événement » — à intégrer sur salle906galtest.ca
+  =============================================================================
+  Où l'ajouter : location-equipements.html, juste avant la section
+  #guide-soumission (ou juste avant le footer, selon préférence visuelle).
+
+  IMPORTANT (leçon apprise sur ce site précis) : le moteur de gabarits de
+  salle906galtest.ca (sc-if, {{ }}, <x-dc>) reconstruit le DOM et n'exécute
+  JAMAIS un <script> inséré de cette façon. Ce composant est donc rédigé en
+  HTML/CSS pur, sans aucun <script>, pour être certain qu'il s'affiche.
+
+  Couleurs : réutilise les variables déjà définies ailleurs sur le site réel
+  (--ink, --gold, --cream). Si ce site n'a pas ces variables en global, les
+  valeurs ci-dessous sont déjà en dur (hex) pour fonctionner sans dépendance.
+
+  À adapter avant publication :
+  - Les 3 href pointent vers locationevenementsherbrooke.ca — à remplacer par
+    le nom de domaine définitif une fois configuré (actuellement le site est
+    accessible via https://glittering-cocada-9d4d8d.netlify.app/).
+-->
+<section style="padding:72px clamp(20px,5vw,64px);background:#f6f2ea;color:#1c1912">
+  <div style="text-align:center;max-width:640px;margin:0 auto 40px">
+    <div style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#a9793d;margin-bottom:14px;font-weight:500">Complétez votre événement</div>
+    <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(26px,3.4vw,36px);margin:0">Décoration et organisation, avec Location d'évènement Sherbrooke</h2>
+    <p style="color:#63594a;font-size:14.5px;line-height:1.65;margin-top:14px">En plus de la location de chaises, tables et sonorisation, trouvez des équipes partenaires pour la décoration et l'organisation de votre événement.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;max-width:1040px;margin:0 auto">
+    <div style="background:#fff;border:1px solid rgba(28,25,18,.1);border-radius:3px;padding:28px 24px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:17px;margin-bottom:8px">Équipements</div>
+      <p style="font-size:13px;color:#63594a;line-height:1.6;margin:0 0 16px">Chaises, tables et sonorisation à louer à la journée.</p>
+      <a href="https://locationevenementsherbrooke.ca/equipements" style="display:inline-block;border:1px solid rgba(28,25,18,.3);color:#1c1912;padding:12px 22px;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:3px">Voir le catalogue</a>
+    </div>
+    <div style="background:#fff;border:1px solid rgba(28,25,18,.1);border-radius:3px;padding:28px 24px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:17px;margin-bottom:8px">Décoration</div>
+      <p style="font-size:13px;color:#63594a;line-height:1.6;margin:0 0 16px">Une mise en scène personnalisée par une équipe partenaire.</p>
+      <a href="https://locationevenementsherbrooke.ca/decoration" style="display:inline-block;border:1px solid rgba(28,25,18,.3);color:#1c1912;padding:12px 22px;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:3px">Demander une proposition</a>
+    </div>
+    <div style="background:#fff;border:1px solid rgba(28,25,18,.1);border-radius:3px;padding:28px 24px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:17px;margin-bottom:8px">Organisation</div>
+      <p style="font-size:13px;color:#63594a;line-height:1.6;margin:0 0 16px">Planification et coordination du jour J, par une équipe partenaire.</p>
+      <a href="https://locationevenementsherbrooke.ca/organisation" style="display:inline-block;border:1px solid rgba(28,25,18,.3);color:#1c1912;padding:12px 22px;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:3px">Décrire mon projet</a>
+    </div>
+  </div>
+</section>
