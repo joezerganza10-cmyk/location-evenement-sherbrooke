@@ -20,7 +20,11 @@
     {"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Table ronde","offers":{"@type":"Offer","price":"13.00","priceCurrency":"CAD"}}},
     {"@type":"ListItem","position":5,"item":{"@type":"Product","name":"Table rectangulaire","offers":{"@type":"Offer","price":"10.00","priceCurrency":"CAD"}}},
     {"@type":"ListItem","position":6,"item":{"@type":"Product","name":"Haut-parleur","offers":{"@type":"Offer","price":"75.00","priceCurrency":"CAD"}}},
-    {"@type":"ListItem","position":7,"item":{"@type":"Product","name":"Microphone","offers":{"@type":"Offer","price":"20.00","priceCurrency":"CAD"}}}
+    {"@type":"ListItem","position":7,"item":{"@type":"Product","name":"Microphone","offers":{"@type":"Offer","price":"20.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":8,"item":{"@type":"Product","name":"Nappe noire","offers":{"@type":"Offer","price":"11.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":9,"item":{"@type":"Product","name":"Nappe rouge","offers":{"@type":"Offer","price":"11.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":10,"item":{"@type":"Product","name":"Nappe blanche","offers":{"@type":"Offer","price":"11.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":11,"item":{"@type":"Product","name":"Nappe bleue","offers":{"@type":"Offer","price":"11.00","priceCurrency":"CAD"}}}
   ]
 }
 </script>
@@ -52,7 +56,7 @@
   </p>
   <div class="catalog-grid" id="catalog-grid"></div>
   <p style="text-align:center;font-size:11.5px;color:var(--faint-on-cream);max-width:640px;margin:30px auto 0;line-height:1.7">
-    Photos fournies à titre indicatif par nos fournisseurs. La nappe visible sur la table ronde reste à confirmer selon l'inventaire réel — chaque soumission précise ce qui est inclus.
+    Photos fournies à titre indicatif par nos fournisseurs. Nappe non incluse — disponible séparément à 11 $/jour (voir Accessoires).
   </p>
 </section>
 
@@ -301,7 +305,7 @@ function renderCatalog(){
         ${i.photo ? `<img src="${i.photo}" alt="${i.name}" loading="lazy" class="${i.photoCropLeft ? 'crop-left' : ''}" onerror="this.style.display='none'">` : `
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5.5-5.5a2 2 0 00-2.8 0L3 19"/></svg>
           <span>Photo à venir</span>`}
-        ${i.unitBadge ? '<span class="eq-unit-badge">Prix pour une unité</span>' : ''}
+        ${i.photoNote ? `<span class="eq-unit-badge">${i.photoNote}</span>` : ''}
       </div>
       <div class="eq-body">
         <span class="eq-cat">${catLabel(i.category)}</span>
@@ -315,8 +319,30 @@ function renderCatalog(){
           <input type="number" min="1" max="500" value="1" id="qty-${i.id}" aria-label="Quantité">
           <button type="button" class="btn-outline" data-add="${i.id}">Ajouter</button>
         </div>
+        ${i.tableclothOffer ? `
+        <div class="tablecloth-offer">
+          <button type="button" class="tablecloth-toggle" data-tablecloth-toggle="${i.id}">+ Ajouter une nappe (11 $/jour)</button>
+          <div class="tablecloth-panel" id="tablecloth-panel-${i.id}" hidden>
+            <select id="tablecloth-color-${i.id}" aria-label="Couleur de la nappe">
+              ${CATALOG_ITEMS.filter(n => n.isTablecloth).map(n => `<option value="${n.id}">${n.colorLabel}</option>`).join('')}
+            </select>
+            <input type="number" min="1" max="50" value="1" id="tablecloth-qty-${i.id}" aria-label="Quantité de nappes">
+            <button type="button" class="btn-outline btn-sm" data-add-tablecloth="${i.id}">Ajouter la nappe</button>
+          </div>
+        </div>` : ''}
       </div>
     </div>`).join('');
+  el.querySelectorAll('[data-tablecloth-toggle]').forEach(btn => btn.addEventListener('click', () => {
+    const panel = document.getElementById(`tablecloth-panel-${btn.dataset.tableclothToggle}`);
+    if (panel) panel.hidden = !panel.hidden;
+  }));
+  el.querySelectorAll('[data-add-tablecloth]').forEach(btn => btn.addEventListener('click', () => {
+    const tableId = btn.dataset.addTablecloth;
+    const colorId = document.getElementById(`tablecloth-color-${tableId}`).value;
+    const qtyInput = document.getElementById(`tablecloth-qty-${tableId}`);
+    const qty = clampQty(parseInt(qtyInput.value, 10));
+    addToCart(colorId, qty, btn);
+  }));
   el.querySelectorAll('[data-add]').forEach(btn => btn.addEventListener('click', () => {
     const id = btn.dataset.add;
     const qtyInput = document.getElementById(`qty-${id}`);

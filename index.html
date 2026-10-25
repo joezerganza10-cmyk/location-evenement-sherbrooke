@@ -253,7 +253,7 @@ function renderHomeTeaser(){
     <div class="eq-card">
       <div class="eq-photo">
         <img src="${i.photo}" alt="${i.name}" loading="lazy" class="${i.photoCropLeft ? 'crop-left' : ''}" onerror="this.style.display='none'">
-        ${i.unitBadge ? '<span class="eq-unit-badge">Prix pour une unité</span>' : ''}
+        ${i.photoNote ? `<span class="eq-unit-badge">${i.photoNote}</span>` : ''}
       </div>
       <div class="eq-body">
         <h3>${i.name}</h3>

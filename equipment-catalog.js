@@ -50,28 +50,52 @@ const EQUIPMENT_ITEMS = [
     price: 2.00, unit: 'par chaise / jour', totalQty: 100, minDays: 1, photo: 'chaise-empilable-accoudoirs.jpg',
   },
 
-  // ---- Tables (2 modèles) ----
+  // ---- Tables (2 modèles) — louées sans nappe, voir Accessoires ----
   {
     id: 'table-ronde', category: 'tables', example: false,
-    name: 'Table ronde', description: 'Table ronde pour vos réceptions et banquets.',
+    name: 'Table ronde', description: 'Table ronde pour vos réceptions et banquets. Nappe non incluse — disponible séparément à 11 $/jour.',
     price: 13.00, unit: 'par table / jour', totalQty: 12, minDays: 1, photo: 'table-ronde-nappe-noire.jpg',
+    photoNote: 'Photo de présentation : nappe louée séparément', tableclothOffer: true,
   },
   {
     id: 'table-rectangulaire', category: 'tables', example: false,
-    name: 'Table rectangulaire', description: 'Table rectangulaire polyvalente, pour buffets, inscriptions ou aires de travail.',
+    name: 'Table rectangulaire', description: 'Table rectangulaire polyvalente, pour buffets, inscriptions ou aires de travail. Nappe non incluse — disponible séparément à 11 $/jour.',
     price: 10.00, unit: 'par table / jour', totalQty: 5, minDays: 1, photo: 'table-rectangulaire-pliante.jpg',
+    tableclothOffer: true,
   },
 
   // ---- Sonorisation (2 types d'équipements) ----
   {
     id: 'haut-parleur', category: 'sonorisation', example: false,
     name: 'Haut-parleur', description: 'Haut-parleur sur pied pour sonoriser votre événement. Prix affiché pour une unité — la photo du fournisseur montre une paire.',
-    price: 75.00, unit: 'par haut-parleur / jour', totalQty: 2, minDays: 1, photo: 'haut-parleur-sur-pied.jpg', photoCropLeft: true, unitBadge: true,
+    price: 75.00, unit: 'par haut-parleur / jour', totalQty: 2, minDays: 1, photo: 'haut-parleur-sur-pied.jpg', photoCropLeft: true, photoNote: 'Prix pour une unité',
   },
   {
     id: 'microphone', category: 'sonorisation', example: false,
     name: 'Microphone', description: 'Microphone sans fil pour vos discours, animations et présentations. Prix affiché pour une unité — la photo du fournisseur montre une paire.',
-    price: 20.00, unit: 'par microphone / jour', totalQty: 6, minDays: 1, photo: 'microphone-sans-fil.jpg', photoCropLeft: true, unitBadge: true,
+    price: 20.00, unit: 'par microphone / jour', totalQty: 6, minDays: 1, photo: 'microphone-sans-fil.jpg', photoCropLeft: true, photoNote: 'Prix pour une unité',
+  },
+
+  // ---- Nappes (accessoire de table, vendu séparément — 4 couleurs) ----
+  {
+    id: 'nappe-noire', category: 'accessoires', example: false,
+    name: 'Nappe noire', description: 'Nappe pour table ronde ou rectangulaire, louée séparément de la table.',
+    price: 11.00, unit: 'par nappe / jour', totalQty: null, minDays: 1, photo: null, isTablecloth: true, colorLabel: 'Noir',
+  },
+  {
+    id: 'nappe-rouge', category: 'accessoires', example: false,
+    name: 'Nappe rouge', description: 'Nappe pour table ronde ou rectangulaire, louée séparément de la table.',
+    price: 11.00, unit: 'par nappe / jour', totalQty: null, minDays: 1, photo: null, isTablecloth: true, colorLabel: 'Rouge',
+  },
+  {
+    id: 'nappe-blanche', category: 'accessoires', example: false,
+    name: 'Nappe blanche', description: 'Nappe pour table ronde ou rectangulaire, louée séparément de la table.',
+    price: 11.00, unit: 'par nappe / jour', totalQty: null, minDays: 1, photo: null, isTablecloth: true, colorLabel: 'Blanc',
+  },
+  {
+    id: 'nappe-bleue', category: 'accessoires', example: false,
+    name: 'Nappe bleue', description: 'Nappe pour table ronde ou rectangulaire, louée séparément de la table.',
+    price: 11.00, unit: 'par nappe / jour', totalQty: null, minDays: 1, photo: null, isTablecloth: true, colorLabel: 'Bleu',
   },
 
   // ============================================================
@@ -92,7 +116,7 @@ const EQUIPMENT_ITEMS = [
   },
   {
     id: 'accessoires-mise-en-place', category: 'accessoires', example: false,
-    name: 'Ensemble de mise en place', description: 'Nappes, serviettes de tissu et accessoires de table pour compléter votre réception.',
+    name: 'Ensemble de mise en place', description: 'Serviettes de tissu et accessoires de table pour compléter votre réception (nappes vendues séparément, voir Nappes).',
     price: null, unit: 'sur demande', totalQty: null, minDays: 1, photo: 'accessoires-mise-en-place.png',
   },
   {
