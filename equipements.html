@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalogue d'équipements à louer | Location d'évènement Sherbrooke</title>
+<meta name="description" content="Chaises, tables et sonorisation à louer à Sherbrooke. Recherchez, filtrez, ajoutez à votre sélection et demandez une soumission gratuite — ajoutez aussi une demande de décoration ou d'organisation sans ressaisir vos coordonnées.">
+<link rel="canonical" href="https://locationevenementsherbrooke.ca/equipements">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared/site-base.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Chaise Napoléon blanche","offers":{"@type":"Offer","price":"3.50","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Chaise à dossier rond","offers":{"@type":"Offer","price":"3.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Chaise avec accoudoirs","offers":{"@type":"Offer","price":"2.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Table ronde","offers":{"@type":"Offer","price":"13.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":5,"item":{"@type":"Product","name":"Table rectangulaire","offers":{"@type":"Offer","price":"10.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":6,"item":{"@type":"Product","name":"Haut-parleur","offers":{"@type":"Offer","price":"75.00","priceCurrency":"CAD"}}},
+    {"@type":"ListItem","position":7,"item":{"@type":"Product","name":"Microphone","offers":{"@type":"Offer","price":"20.00","priceCurrency":"CAD"}}}
+  ]
+}
+</script>
+<style>
+.cat-hero{background:var(--ink);color:var(--cream);padding:56px clamp(20px,5vw,56px) 44px;text-align:center}
+.cat-hero h1{font-size:clamp(26px,3.6vw,38px)}
+.cat-hero p{max-width:620px;margin:14px auto 0;color:var(--text-dim);font-size:14.5px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<nav id="site-nav"></nav>
+
+<section class="cat-hero">
+  <div class="eyebrow">Équipements</div>
+  <h1>Chaises, tables et sonorisation, prêts pour votre événement.</h1>
+  <p>Tarifs par unité et par jour. Disponibilités confirmées lors de la soumission.</p>
+</section>
+
+<section style="padding-top:48px">
+  <div class="catalog-toolbar">
+    <input type="search" id="catalog-search" class="catalog-search" placeholder="Rechercher un équipement (ex. table, chaise, micro…)" aria-label="Rechercher un équipement">
+  </div>
+  <div class="filters" id="filters"></div>
+  <p class="catalog-meta" id="catalog-meta" aria-live="polite">
+    <span id="catalog-count"></span>
+    <button type="button" class="catalog-reset" id="catalog-reset">Réinitialiser les filtres</button>
+  </p>
+  <div class="catalog-grid" id="catalog-grid"></div>
+  <p style="text-align:center;font-size:11.5px;color:var(--faint-on-cream);max-width:640px;margin:30px auto 0;line-height:1.7">
+    Photos fournies à titre indicatif par nos fournisseurs. La nappe visible sur la table ronde reste à confirmer selon l'inventaire réel — chaque soumission précise ce qui est inclus.
+  </p>
+</section>
+
+<!-- ============ PANIER ============ -->
+<section id="cart-section" class="on-ink2">
+  <div class="section-head">
+    <div class="eyebrow">Votre sélection</div>
+    <h2>Votre demande d'équipements</h2>
+  </div>
+  <div id="cart-list"></div>
+  <p class="cart-note">Les prix affichés sont nos tarifs réels à l'unité, pour une location d'une journée. L'estimation ci-dessus ne comprend aucune taxe ni frais de livraison — notre équipe confirme la disponibilité réelle et le prix final avant de vous envoyer une soumission.</p>
+</section>
+
+<!-- ============ DEMANDE COMBINÉE ============ -->
+<section id="demande-soumission">
+  <div class="form-wrap">
+    <div class="section-head">
+      <div class="eyebrow">Finaliser</div>
+      <h2 style="font-size:clamp(23px,3.2vw,30px)">Envoyer ma demande de soumission</h2>
+      <p>Vous pouvez combiner votre sélection d'équipements avec une demande de décoration ou d'organisation, sans ressaisir vos coordonnées.</p>
+    </div>
+
+    <form id="quote-form">
+      <div id="form-error-slot"></div>
+
+      <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+        <label for="website">Laisser vide</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="mode-toggle" role="group" aria-label="Mode de récupération">
+        <button type="button" class="mode-btn is-active" id="mode-ramassage" aria-pressed="true">Ramassage sur place</button>
+        <button type="button" class="mode-btn" id="mode-livraison" aria-pressed="false">Livraison</button>
+      </div>
+
+      <div id="mode-ramassage-fields">
+        <p style="font-size:12.5px;color:var(--muted-on-cream);margin:0 0 16px">Les plages horaires de ramassage vous seront confirmées par notre équipe.</p>
+        <div class="field-grid">
+          <div class="field"><label for="pickup-date">Date de récupération souhaitée *</label><input type="date" id="pickup-date" required></div>
+          <div class="field"><label for="return-date-p">Date de retour souhaitée *</label><input type="date" id="return-date-p" required></div>
+        </div>
+      </div>
+
+      <div id="mode-livraison-fields" style="display:none">
+        <div class="field"><label for="d-address">Adresse complète *</label><input type="text" id="d-address"></div>
+        <div class="field-grid">
+          <div class="field"><label for="d-city">Ville *</label><input type="text" id="d-city"></div>
+          <div class="field"><label for="d-postal">Code postal *</label><input type="text" id="d-postal"></div>
+        </div>
+        <div class="field-grid">
+          <div class="field"><label for="delivery-date">Date de livraison souhaitée *</label><input type="date" id="delivery-date"></div>
+          <div class="field"><label for="return-date-d">Date de récupération souhaitée *</label><input type="date" id="return-date-d"></div>
+        </div>
+        <div class="field-grid">
+          <div class="field"><label for="d-floor">Étage <span class="hint">(facultatif)</span></label><input type="text" id="d-floor"></div>
+          <div class="field"><label for="d-elevator">Ascenseur disponible ?</label>
+            <select id="d-elevator"><option value="">—</option><option value="oui">Oui</option><option value="non">Non</option><option value="sans-objet">Sans objet</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="d-instructions">Instructions particulières <span class="hint">(facultatif)</span></label><textarea id="d-instructions" style="min-height:70px"></textarea></div>
+        <p style="font-size:11.5px;color:var(--faint-on-cream);margin:-6px 0 20px">Frais de livraison à confirmer dans votre soumission.</p>
+      </div>
+
+      <div class="field-grid">
+        <div class="field"><label for="c-name">Prénom et nom *</label><input type="text" id="c-name" autocomplete="name"></div>
+        <div class="field"><label for="c-email">Courriel *</label><input type="email" id="c-email" autocomplete="email"></div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="c-phone">Téléphone *</label><input type="tel" id="c-phone" autocomplete="tel"></div>
+        <div class="field">
+          <label for="c-event-type">Type d'événement *</label>
+          <select id="c-event-type">
+            <option value="" disabled selected>Sélectionnez…</option>
+            <option value="Mariage">Mariage</option>
+            <option value="Anniversaire">Anniversaire / célébration</option>
+            <option value="Corporatif">Événement corporatif</option>
+            <option value="Conférence">Conférence</option>
+            <option value="Communautaire">Événement communautaire / église</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="c-event-date">Date de l'événement *</label><input type="date" id="c-event-date"></div>
+
+      <div class="field">
+        <label for="c-venue-choice">Où se déroulera votre événement ? *</label>
+        <select id="c-venue-choice">
+          <option value="" disabled selected>Sélectionnez…</option>
+          <option value="Salle 906 Galt Est">Salle 906 Galt Est</option>
+          <option value="Autre lieu">Autre lieu</option>
+          <option value="À confirmer">Lieu à confirmer</option>
+        </select>
+      </div>
+      <div class="conditional-field" id="venue-906-fields">
+        <div class="field-grid">
+          <div class="field"><label for="c-venue-which">Quelle salle ? <span class="hint">(facultatif)</span></label><input type="text" id="c-venue-which" placeholder="Ex. Salle A, Salle B…"></div>
+          <div class="field"><label for="c-venue-booked">Avez-vous déjà une réservation ?</label>
+            <select id="c-venue-booked"><option value="">—</option><option value="oui">Oui</option><option value="non">Non, pas encore</option></select>
+          </div>
+        </div>
+      </div>
+
+      <label class="check-row">
+        <input type="checkbox" id="c-wants-deco">
+        <span>Je souhaite une proposition de décoration pour cet événement.</span>
+      </label>
+      <div class="conditional-field" id="deco-extra-fields">
+        <div class="field"><label for="c-deco-style">Style ou couleurs souhaités <span class="hint">(facultatif)</span></label><input type="text" id="c-deco-style" placeholder="Ex. champagne et ivoire, minimaliste…"></div>
+      </div>
+
+      <label class="check-row">
+        <input type="checkbox" id="c-wants-orga">
+        <span>Je souhaite un accompagnement pour l'organisation de mon événement.</span>
+      </label>
+      <div class="conditional-field" id="orga-extra-fields">
+        <div class="field">
+          <label for="c-orga-type">Type d'accompagnement souhaité</label>
+          <select id="c-orga-type">
+            <option value="">—</option>
+            <option value="Planification">Planification</option>
+            <option value="Coordination du jour J">Coordination du jour J</option>
+            <option value="Les deux">Les deux</option>
+            <option value="Conseils">J'ai besoin de conseils pour choisir</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field"><label for="c-comments">Commentaires supplémentaires <span class="hint">(facultatif)</span></label><textarea id="c-comments"></textarea></div>
+
+      <div class="request-summary" id="request-summary"></div>
+
+      <label class="check-row">
+        <input type="checkbox" id="c-consent" required>
+        <span>Je comprends que cette demande est une soumission, pas une réservation confirmée, et que mes renseignements seront traités par Location d'évènement Sherbrooke — et transmis à nos équipes partenaires uniquement si je demande une proposition de décoration ou d'organisation.</span>
+      </label>
+
+      <button type="submit" class="btn" id="quote-submit" style="width:100%;justify-content:center">Envoyer ma demande de soumission</button>
+    </form>
+
+    <div id="quote-success" style="display:none">
+      <div class="confirm-screen">
+        <div class="confirm-check">✓</div>
+        <h3>Votre demande est envoyée.</h3>
+        <p style="color:var(--muted-on-cream);margin-top:10px">Merci ! Notre équipe vérifie la disponibilité réelle de votre sélection et vous enverra une soumission précise par courriel. Une demande ne confirme pas une réservation.</p>
+        <div class="confirm-ref" id="quote-ref"></div>
+        <div style="margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+          <a class="btn" href="tel:+18196789242">Nous contacter</a>
+          <a class="btn-outline" href="/">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div id="site-footer"></div>
+</footer>
+
+<div id="cart-float"><span id="cart-float-count">0</span> équipement(s) sélectionné(s)</div>
+
+<script src="/shared/site-chrome.js"></script>
+<script src="./equipment-catalog.js"></script>
+<script>
+function formatCAD(n){ return Number(n).toLocaleString('fr-CA', { style: 'currency', currency: 'CAD' }); }
+
+let CATALOG_ITEMS = EQUIPMENT_ITEMS;
+let CATALOG_CATEGORIES = EQUIPMENT_CATEGORIES;
+let searchTerm = '';
+let activeFilterId = 'tous';
+
+async function loadCatalogFromSupabase(){
+  try {
+    const res = await fetch('/.netlify/functions/equipment-catalog-public');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.success || !Array.isArray(data.items) || !data.items.length) return;
+    CATALOG_ITEMS = data.items.map(i => ({
+      id: i.id, category: i.category, name: i.name, description: i.description,
+      price: i.price, unit: i.unit, totalQty: i.totalQty ?? null, photo: (i.photos && i.photos[0]) || null, example: false,
+    }));
+    CATALOG_CATEGORIES = data.categories && data.categories.length ? data.categories : EQUIPMENT_CATEGORIES;
+    renderFilters(); renderCatalog();
+  } catch (err) {
+    console.warn('[équipements] catalogue Supabase indisponible, catalogue statique conservé —', err.message);
+  }
+}
+
+function loadCart(){
+  try { return JSON.parse(sessionStorage.getItem(CART_KEY) || '[]'); } catch(e){ return []; }
+}
+function saveCart(cart){
+  try { sessionStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e){}
+  renderCart(); renderCartFloat(); updateCartBadge(); renderRequestSummary();
+}
+function addToCart(itemId, qty, btn){
+  const item = CATALOG_ITEMS.find(i => i.id === itemId);
+  if (!item) return;
+  const cart = loadCart();
+  const existing = cart.find(c => c.itemId === itemId);
+  if (existing) existing.qty += qty; else cart.push({ itemId, name: item.name, unit: item.unit, qty, price: item.price });
+  saveCart(cart);
+  if (btn){
+    const wrap = btn.closest('.eq-add'); const label = btn.textContent;
+    wrap.classList.add('is-added'); btn.textContent = 'Ajouté ✓';
+    setTimeout(() => { wrap.classList.remove('is-added'); btn.textContent = label; }, 1400);
+  }
+}
+function removeFromCart(itemId){ saveCart(loadCart().filter(c => c.itemId !== itemId)); }
+function clampQty(qty){ return Math.min(500, Math.max(1, qty || 1)); }
+function updateQty(itemId, qty){
+  const cart = loadCart(); const row = cart.find(c => c.itemId === itemId);
+  if (row) row.qty = clampQty(qty);
+  saveCart(cart);
+}
+
+function renderFilters(){
+  const el = document.getElementById('filters');
+  const visible = CATALOG_CATEGORIES.filter(c => categoryHasPricedItem(c.id));
+  const all = [{ id:'tous', label:'Tous' }, ...visible];
+  el.innerHTML = all.map(c => `<button type="button" class="filter-chip${c.id===activeFilterId?' is-active':''}" data-filter="${c.id}">${c.label}</button>`).join('');
+  el.querySelectorAll('.filter-chip').forEach(btn => btn.addEventListener('click', () => {
+    activeFilterId = btn.dataset.filter;
+    el.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderCatalog();
+  }));
+}
+function categoryHasPricedItem(catId){ return CATALOG_ITEMS.some(i => i.category === catId && i.price != null); }
+
+function renderCatalog(){
+  const el = document.getElementById('catalog-grid');
+  const countEl = document.getElementById('catalog-count');
+  let items = CATALOG_ITEMS.filter(i => i.price != null);
+  if (activeFilterId !== 'tous') items = items.filter(i => i.category === activeFilterId);
+  if (searchTerm) items = items.filter(i => i.name.toLowerCase().includes(searchTerm) || (i.description||'').toLowerCase().includes(searchTerm));
+  const catLabel = (id) => (CATALOG_CATEGORIES.find(c => c.id === id) || {}).label || id;
+  countEl.textContent = `${items.length} équipement${items.length > 1 ? 's' : ''}`;
+
+  if (!items.length){
+    el.innerHTML = '<div class="empty-note">Aucun équipement ne correspond à votre recherche.</div>';
+    return;
+  }
+  el.innerHTML = items.map(i => `
+    <div class="eq-card">
+      <div class="eq-photo">
+        ${i.photo ? `<img src="${i.photo}" alt="${i.name}" loading="lazy" class="${i.photoCropLeft ? 'crop-left' : ''}" onerror="this.style.display='none'">` : `
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5.5-5.5a2 2 0 00-2.8 0L3 19"/></svg>
+          <span>Photo à venir</span>`}
+        ${i.unitBadge ? '<span class="eq-unit-badge">Prix pour une unité</span>' : ''}
+      </div>
+      <div class="eq-body">
+        <span class="eq-cat">${catLabel(i.category)}</span>
+        <h3>${i.name}</h3>
+        <p class="desc">${i.description}</p>
+        <div class="eq-stock">Stock total : ${i.totalQty != null ? i.totalQty : '—'} — non garanti pour une date précise</div>
+        <div class="eq-price-row">
+          <span class="eq-price">${formatCAD(i.price)}<small>${i.unit || ''}</small></span>
+        </div>
+        <div class="eq-add">
+          <input type="number" min="1" max="500" value="1" id="qty-${i.id}" aria-label="Quantité">
+          <button type="button" class="btn-outline" data-add="${i.id}">Ajouter</button>
+        </div>
+      </div>
+    </div>`).join('');
+  el.querySelectorAll('[data-add]').forEach(btn => btn.addEventListener('click', () => {
+    const id = btn.dataset.add;
+    const qtyInput = document.getElementById(`qty-${id}`);
+    addToCart(id, clampQty(parseInt(qtyInput.value, 10)), btn);
+  }));
+}
+
+document.getElementById('catalog-search').addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim().toLowerCase();
+  renderCatalog();
+});
+document.getElementById('catalog-reset').addEventListener('click', () => {
+  searchTerm = ''; activeFilterId = 'tous';
+  document.getElementById('catalog-search').value = '';
+  renderFilters(); renderCatalog();
+});
+
+function renderCart(){
+  const el = document.getElementById('cart-list');
+  const cart = loadCart();
+  if (!cart.length){
+    el.innerHTML = '<p class="cart-empty">Votre sélection est vide pour l\'instant — ajoutez des équipements depuis le catalogue ci-dessus.</p>';
+    return;
+  }
+  el.innerHTML = `<div class="cart-list">${cart.map(c => `
+    <div class="cart-item">
+      <div class="ci-name">${c.name}<small>${c.unit || ''}${c.price != null ? ` · ${formatCAD(c.price)}` : ''}</small></div>
+      <div class="ci-actions">
+        <input type="number" min="1" max="500" value="${c.qty}" data-qty="${c.itemId}" aria-label="Quantité">
+        ${c.price != null ? `<span class="ci-line-total">${formatCAD(c.price * c.qty)}</span>` : ''}
+        <button type="button" class="cart-remove" data-remove="${c.itemId}">Retirer</button>
+      </div>
+    </div>`).join('')}</div>
+    ${renderCartSubtotal(cart)}`;
+  el.querySelectorAll('[data-qty]').forEach(inp => inp.addEventListener('change', () => updateQty(inp.dataset.qty, parseInt(inp.value,10)||1)));
+  el.querySelectorAll('[data-remove]').forEach(btn => btn.addEventListener('click', () => removeFromCart(btn.dataset.remove)));
+}
+function cartSubtotal(cart){
+  return cart.filter(c => c.price != null).reduce((sum, c) => sum + c.price * c.qty, 0);
+}
+function renderCartSubtotal(cart){
+  const pricedLines = cart.filter(c => c.price != null);
+  if (!pricedLines.length) return '';
+  const hasUnpriced = pricedLines.length < cart.length;
+  return `<div class="cart-subtotal">
+    <span>Estimation pour une journée${hasUnpriced ? ' (articles à prix confirmé seulement)' : ''}</span>
+    <strong>${formatCAD(cartSubtotal(cart))}</strong>
+  </div>`;
+}
+function renderCartFloat(){
+  const cart = loadCart();
+  const count = cart.reduce((n,c) => n + c.qty, 0);
+  const floatEl = document.getElementById('cart-float');
+  document.getElementById('cart-float-count').textContent = count;
+  floatEl.classList.toggle('is-visible', count > 0);
+}
+document.getElementById('cart-float').addEventListener('click', () => {
+  document.getElementById('cart-section').scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+function renderRequestSummary(){
+  const el = document.getElementById('request-summary');
+  const cart = loadCart();
+  const wantsDeco = document.getElementById('c-wants-deco').checked;
+  const wantsOrga = document.getElementById('c-wants-orga').checked;
+  const rows = [];
+  rows.push(`<div class="request-summary-row"><span class="rs-label">Équipements (${cart.reduce((n,c)=>n+c.qty,0)} article${cart.reduce((n,c)=>n+c.qty,0)>1?'s':''})</span><span class="rs-value">${cart.length ? formatCAD(cartSubtotal(cart)) + ' / jour (estimé)' : 'Aucun'}</span></div>`);
+  if (wantsDeco) rows.push('<div class="request-summary-row"><span class="rs-label">Décoration</span><span class="rs-value rs-tbd">Proposition personnalisée à établir</span></div>');
+  if (wantsOrga) rows.push('<div class="request-summary-row"><span class="rs-label">Organisation</span><span class="rs-value rs-tbd">Proposition personnalisée à établir</span></div>');
+  el.innerHTML = rows.join('');
+}
+document.getElementById('c-wants-deco').addEventListener('change', (e) => {
+  document.getElementById('deco-extra-fields').classList.toggle('is-open', e.target.checked);
+  renderRequestSummary();
+});
+document.getElementById('c-wants-orga').addEventListener('change', (e) => {
+  document.getElementById('orga-extra-fields').classList.toggle('is-open', e.target.checked);
+  renderRequestSummary();
+});
+document.getElementById('c-venue-choice').addEventListener('change', (e) => {
+  document.getElementById('venue-906-fields').classList.toggle('is-open', e.target.value === 'Salle 906 Galt Est');
+});
+
+let deliveryMode = 'ramassage';
+function setMode(mode){
+  deliveryMode = mode;
+  document.getElementById('mode-ramassage').classList.toggle('is-active', mode === 'ramassage');
+  document.getElementById('mode-ramassage').setAttribute('aria-pressed', mode === 'ramassage');
+  document.getElementById('mode-livraison').classList.toggle('is-active', mode === 'livraison');
+  document.getElementById('mode-livraison').setAttribute('aria-pressed', mode === 'livraison');
+  document.getElementById('mode-ramassage-fields').style.display = mode === 'ramassage' ? 'block' : 'none';
+  document.getElementById('mode-livraison-fields').style.display = mode === 'livraison' ? 'block' : 'none';
+}
+document.getElementById('mode-ramassage').addEventListener('click', () => setMode('ramassage'));
+document.getElementById('mode-livraison').addEventListener('click', () => setMode('livraison'));
+
+function todayISO(){
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function initDateFloors(){
+  const today = todayISO();
+  ['pickup-date','return-date-p','delivery-date','return-date-d','c-event-date'].forEach(id => {
+    document.getElementById(id).setAttribute('min', today);
+  });
+  document.getElementById('pickup-date').addEventListener('change', (e) => {
+    document.getElementById('return-date-p').setAttribute('min', e.target.value || today);
+  });
+  document.getElementById('delivery-date').addEventListener('change', (e) => {
+    document.getElementById('return-date-d').setAttribute('min', e.target.value || today);
+  });
+}
+initDateFloors();
+
+const FORM_LOADED_AT = Date.now();
+
+document.getElementById('quote-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errorSlot = document.getElementById('form-error-slot');
+  errorSlot.innerHTML = '';
+  const showError = (msg) => { errorSlot.innerHTML = `<div class="error-box">${msg}</div>`; errorSlot.scrollIntoView({ behavior:'smooth', block:'center' }); };
+
+  const cart = loadCart();
+  const wantsDecoration = document.getElementById('c-wants-deco').checked;
+  const wantsOrganisation = document.getElementById('c-wants-orga').checked;
+
+  if (!cart.length && !wantsDecoration && !wantsOrganisation){
+    showError('Ajoutez au moins un équipement, ou cochez une demande de décoration ou d\'organisation, avant d\'envoyer votre demande.');
+    return;
+  }
+
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const phone = document.getElementById('c-phone').value.trim();
+  const eventType = document.getElementById('c-event-type').value;
+  const eventDate = document.getElementById('c-event-date').value;
+  const venueChoice = document.getElementById('c-venue-choice').value;
+  const consent = document.getElementById('c-consent').checked;
+  const honeypot = document.getElementById('website').value;
+
+  if (!name || !email || !phone || !eventType || !eventDate || !venueChoice || !consent){
+    showError('Merci de remplir tous les champs obligatoires (*) et de cocher la case de consentement.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    showError('Merci d\'entrer une adresse courriel valide.');
+    return;
+  }
+
+  let deliveryInfo = null;
+  if (cart.length){
+    if (deliveryMode === 'ramassage'){
+      const pickupDate = document.getElementById('pickup-date').value;
+      const returnDate = document.getElementById('return-date-p').value;
+      if (!pickupDate || !returnDate){ showError('Merci d\'indiquer la date de récupération et la date de retour.'); return; }
+      if (returnDate < pickupDate){ showError('La date de retour ne peut pas être antérieure à la date de récupération.'); return; }
+      deliveryInfo = { pickupDate, returnDate };
+    } else {
+      const address = document.getElementById('d-address').value.trim();
+      const city = document.getElementById('d-city').value.trim();
+      const postalCode = document.getElementById('d-postal').value.trim();
+      const deliveryDate = document.getElementById('delivery-date').value;
+      const returnDate = document.getElementById('return-date-d').value;
+      if (!address || !city || !postalCode || !deliveryDate || !returnDate){ showError('Merci de remplir tous les champs obligatoires de livraison.'); return; }
+      if (returnDate < deliveryDate){ showError('La date de récupération ne peut pas être antérieure à la date de livraison.'); return; }
+      deliveryInfo = {
+        address, city, postalCode, deliveryDate, returnDate,
+        floor: document.getElementById('d-floor').value.trim(),
+        elevator: document.getElementById('d-elevator').value,
+        instructions: document.getElementById('d-instructions').value.trim(),
+      };
+    }
+  } else {
+    // Pas d'équipements : on utilise la date de l'événement comme repère, la fonction exige toujours une plage.
+    deliveryInfo = { pickupDate: eventDate, returnDate: eventDate };
+  }
+
+  const venueNote = venueChoice === 'Salle 906 Galt Est'
+    ? `Lieu : Salle 906 Galt Est${document.getElementById('c-venue-which').value.trim() ? ' (' + document.getElementById('c-venue-which').value.trim() + ')' : ''}${document.getElementById('c-venue-booked').value ? ' — réservation existante : ' + document.getElementById('c-venue-booked').value : ''}`
+    : `Lieu : ${venueChoice}`;
+  const decoNote = wantsDecoration && document.getElementById('c-deco-style').value.trim()
+    ? `Style/couleurs souhaités (décoration) : ${document.getElementById('c-deco-style').value.trim()}` : '';
+  const orgaNote = wantsOrganisation && document.getElementById('c-orga-type').value
+    ? `Accompagnement souhaité (organisation) : ${document.getElementById('c-orga-type').value}` : '';
+  const comments = [document.getElementById('c-comments').value.trim(), venueNote, decoNote, orgaNote].filter(Boolean).join('\n');
+
+  const submitBtn = document.getElementById('quote-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Envoi…';
+
+  const payload = {
+    name, email, phone, eventType, eventDate,
+    comments,
+    wantsDecoration, wantsOrganisation,
+    deliveryMode: cart.length ? deliveryMode : 'ramassage', deliveryInfo,
+    items: cart.map(c => ({ itemId: c.itemId, name: c.name, unit: c.unit, qty: c.qty })),
+    source: "Équipements — Location d'évènement Sherbrooke",
+    website: honeypot,
+    formLoadedAt: FORM_LOADED_AT,
+  };
+
+  try {
+    const res = await fetch('/.netlify/functions/equipment-quote-request', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.message || 'Erreur lors de l\'envoi.');
+
+    try { sessionStorage.removeItem(CART_KEY); } catch(err){}
+    document.getElementById('quote-form').style.display = 'none';
+    document.getElementById('quote-ref').textContent = `Référence : ${data.quoteRef || '—'}`;
+    document.getElementById('quote-success').style.display = 'block';
+    document.getElementById('quote-success').scrollIntoView({ behavior:'smooth', block:'start' });
+  } catch (err) {
+    console.error('[équipements:submit]', err);
+    showError('Une erreur est survenue lors de l\'envoi. Vous pouvez réessayer, ou nous joindre directement au (819) 678-9242.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Envoyer ma demande de soumission';
+  }
+});
+
+function initReveal(){
+  const els = document.querySelectorAll('.reveal:not(.is-visible)');
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('is-visible')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); } });
+  }, { threshold:.15, rootMargin:'0px 0px -60px 0px' });
+  els.forEach(el => io.observe(el));
+}
+
+renderSiteChrome('equipements');
+renderFilters();
+renderCatalog();
+renderCart();
+renderCartFloat();
+renderRequestSummary();
+initReveal();
+loadCatalogFromSupabase();
+</script>
+</body>
+</html>

@@ -65,13 +65,13 @@ const EQUIPMENT_ITEMS = [
   // ---- Sonorisation (2 types d'équipements) ----
   {
     id: 'haut-parleur', category: 'sonorisation', example: false,
-    name: 'Haut-parleur', description: 'Haut-parleur pour sonoriser votre événement.',
-    price: 75.00, unit: 'par haut-parleur / jour', totalQty: 2, minDays: 1, photo: 'haut-parleur-sur-pied.jpg', photoPosition: 'center 10%',
+    name: 'Haut-parleur', description: 'Haut-parleur sur pied pour sonoriser votre événement. Prix affiché pour une unité — la photo du fournisseur montre une paire.',
+    price: 75.00, unit: 'par haut-parleur / jour', totalQty: 2, minDays: 1, photo: 'haut-parleur-sur-pied.jpg', photoCropLeft: true, unitBadge: true,
   },
   {
     id: 'microphone', category: 'sonorisation', example: false,
-    name: 'Microphone', description: 'Microphone pour vos discours, animations et présentations.',
-    price: 20.00, unit: 'par microphone / jour', totalQty: 6, minDays: 1, photo: 'microphone-sans-fil.jpg', photoPosition: 'center 15%',
+    name: 'Microphone', description: 'Microphone sans fil pour vos discours, animations et présentations. Prix affiché pour une unité — la photo du fournisseur montre une paire.',
+    price: 20.00, unit: 'par microphone / jour', totalQty: 6, minDays: 1, photo: 'microphone-sans-fil.jpg', photoCropLeft: true, unitBadge: true,
   },
 
   // ============================================================

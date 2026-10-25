@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organisation d'événements | Location d'évènement Sherbrooke</title>
+<meta name="description" content="Planification et coordination du jour J pour votre événement à Sherbrooke, assurées par une équipe partenaire spécialisée. Décrivez votre projet et recevez un accompagnement adapté.">
+<link rel="canonical" href="https://locationevenementsherbrooke.ca/organisation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared/site-base.css">
+<style>
+.org-hero{position:relative;min-height:46vh;display:flex;align-items:center;background:linear-gradient(180deg,rgba(22,20,15,.25) 0%,rgba(22,20,15,.95) 100%),url('table-rectangulaire-pliante.jpg');background-size:cover;background-position:center}
+.org-hero-inner{padding:0 clamp(24px,6vw,64px);max-width:660px;color:#fff}
+.org-hero p{font-size:14.5px;color:var(--text-muted);margin:14px 0 0;line-height:1.6}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1040px;margin:0 auto}
+.pillar{background:#fff;border:1px solid var(--line-on-cream);border-radius:3px;padding:26px 24px}
+.pillar .ic{width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:14px}
+.pillar h4{font-size:15.5px;margin-bottom:6px}
+.pillar p{font-size:12.5px;color:var(--muted-on-cream);line-height:1.6;margin:0}
+.notice{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line-on-cream);border-radius:3px;padding:22px 26px;font-size:12.5px;color:var(--muted-on-cream);line-height:1.7}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:22px}
+@media (max-width:560px){ .choice-grid{grid-template-columns:1fr} }
+.choice-card{border:1px solid var(--line-on-cream);background:#fff;border-radius:3px;padding:14px 16px;cursor:pointer;font-size:13px;color:var(--ink-on-cream);text-align:left}
+.choice-card.is-active{border-color:var(--gold);background:rgba(184,137,79,.07)}
+.choice-card strong{display:block;font-family:'Playfair Display',serif;font-size:14.5px;margin-bottom:2px}
+</style>
+</head>
+<body>
+
+<nav id="site-nav"></nav>
+
+<section class="org-hero">
+  <div class="org-hero-inner">
+    <div class="eyebrow">Location d'évènement Sherbrooke · Organisation d'événements</div>
+    <h1 style="font-size:clamp(28px,4.2vw,42px);line-height:1.12">Un accompagnement pour préparer et coordonner votre événement.</h1>
+    <p>Décrivez votre projet — nous vous orientons vers une équipe partenaire spécialisée en planification et en coordination, qui prépare un accompagnement adapté à vos besoins.</p>
+  </div>
+</section>
+
+<section>
+  <div class="pillars">
+    <div class="pillar reveal">
+      <div class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></div>
+      <h4>Planification</h4>
+      <p>Accompagnement pendant la préparation : fournisseurs, échéancier, budget et décisions à prendre en amont.</p>
+    </div>
+    <div class="pillar reveal reveal-delay-1">
+      <div class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+      <h4>Coordination du jour J</h4>
+      <p>Préparation du déroulement et coordination des intervenants le jour de l'événement, pour que tout se déroule sans accroc.</p>
+    </div>
+    <div class="pillar reveal reveal-delay-2">
+      <div class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l18-7-7 18-2-8z"/></svg></div>
+      <h4>Réalisé par nos partenaires</h4>
+      <p>La planification et la coordination sont assurées par des équipes partenaires spécialisées, selon leurs disponibilités.</p>
+    </div>
+  </div>
+</section>
+
+<section class="on-ink2">
+  <div class="notice" style="background:var(--ink);border-color:rgba(246,242,234,.12);color:var(--text-dim)">
+    Avant tout engagement, votre soumission précise clairement qui prépare la proposition, établit le contrat et reçoit le paiement pour ce service. Aucune réservation n'est confirmée par ce formulaire.
+  </div>
+</section>
+
+<section id="demande-organisation">
+  <div class="form-wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Demande d'accompagnement</div>
+      <h2 style="font-size:clamp(23px,3.2vw,30px)">Décrivez votre projet</h2>
+    </div>
+
+    <form id="orga-form">
+      <div id="form-error-slot"></div>
+      <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+        <label for="website">Laisser vide</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Quel accompagnement souhaitez-vous ? *</label>
+        <div class="choice-grid" role="group" aria-label="Type d'accompagnement" id="orga-choice-grid">
+          <button type="button" class="choice-card" data-choice="Planification"><strong>Planification</strong>Avant l'événement</button>
+          <button type="button" class="choice-card" data-choice="Coordination du jour J"><strong>Coordination du jour J</strong>Le jour même</button>
+          <button type="button" class="choice-card" data-choice="Les deux"><strong>Les deux</strong>Planification et coordination</button>
+          <button type="button" class="choice-card" data-choice="Conseils"><strong>Conseils</strong>J'ai besoin d'aide à choisir</button>
+        </div>
+        <input type="hidden" id="c-service-choice" required>
+      </div>
+
+      <div class="field-grid">
+        <div class="field"><label for="c-name">Prénom et nom *</label><input type="text" id="c-name" autocomplete="name"></div>
+        <div class="field"><label for="c-email">Courriel *</label><input type="email" id="c-email" autocomplete="email"></div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="c-phone">Téléphone *</label><input type="tel" id="c-phone" autocomplete="tel"></div>
+        <div class="field">
+          <label for="c-event-type">Type d'événement *</label>
+          <select id="c-event-type">
+            <option value="" disabled selected>Sélectionnez…</option>
+            <option value="Mariage">Mariage</option>
+            <option value="Anniversaire">Anniversaire / célébration</option>
+            <option value="Corporatif">Événement corporatif</option>
+            <option value="Communautaire">Événement communautaire / église</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="c-event-date">Date de l'événement *</label><input type="date" id="c-event-date"></div>
+        <div class="field"><label for="c-guests">Nombre d'invités <span class="hint">(approximatif)</span></label><input type="number" id="c-guests" min="1" max="2000"></div>
+      </div>
+      <div class="field"><label for="c-venue">Lieu de l'événement *</label><input type="text" id="c-venue" placeholder="Nom et ville du lieu, ou « à confirmer »"></div>
+      <div class="field">
+        <label for="c-stage">Où en êtes-vous dans votre préparation ? <span class="hint">(facultatif)</span></label>
+        <select id="c-stage">
+          <option value="">—</option>
+          <option value="Tout est à faire">Tout est à faire</option>
+          <option value="Quelques fournisseurs réservés">Quelques fournisseurs déjà réservés</option>
+          <option value="Presque tout est planifié">Presque tout est planifié, besoin de coordination seulement</option>
+        </select>
+      </div>
+      <div class="field"><label for="c-budget">Budget indicatif <span class="hint">(facultatif)</span></label>
+        <select id="c-budget">
+          <option value="">Préférez ne pas préciser</option>
+          <option value="Moins de 1 000 $">Moins de 1 000 $</option>
+          <option value="1 000 $ – 3 000 $">1 000 $ – 3 000 $</option>
+          <option value="3 000 $ – 6 000 $">3 000 $ – 6 000 $</option>
+          <option value="Plus de 6 000 $">Plus de 6 000 $</option>
+        </select>
+      </div>
+      <div class="field"><label for="c-comments">Décrivez vos besoins <span class="hint">(facultatif)</span></label><textarea id="c-comments"></textarea></div>
+
+      <label class="check-row">
+        <input type="checkbox" id="c-consent" required>
+        <span>Je comprends que cette demande est une demande d'accompagnement, pas une réservation confirmée, et que mes renseignements seront transmis à une équipe partenaire pour y répondre.</span>
+      </label>
+
+      <button type="submit" class="btn" id="orga-submit" style="width:100%;justify-content:center">Envoyer ma demande</button>
+    </form>
+
+    <div id="orga-success" style="display:none">
+      <div class="confirm-screen">
+        <div class="confirm-check">✓</div>
+        <h3>Votre demande est envoyée.</h3>
+        <p style="color:var(--muted-on-cream);margin-top:10px">Merci ! Notre équipe vous mettra en relation avec le partenaire approprié selon vos besoins et sa disponibilité.</p>
+        <div class="confirm-ref" id="orga-ref"></div>
+        <div style="margin-top:26px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+          <a class="btn" href="tel:+18196789242">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div id="site-footer"></div>
+</footer>
+
+<script src="/shared/site-chrome.js"></script>
+<script>
+document.querySelectorAll('#orga-choice-grid .choice-card').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#orga-choice-grid .choice-card').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    document.getElementById('c-service-choice').value = btn.dataset.choice;
+  });
+});
+
+function initReveal(){
+  const els = document.querySelectorAll('.reveal:not(.is-visible)');
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('is-visible')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); } });
+  }, { threshold:.15, rootMargin:'0px 0px -60px 0px' });
+  els.forEach(el => io.observe(el));
+}
+
+const FORM_LOADED_AT = Date.now();
+document.getElementById('orga-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errorSlot = document.getElementById('form-error-slot');
+  errorSlot.innerHTML = '';
+  const showError = (msg) => { errorSlot.innerHTML = `<div class="error-box">${msg}</div>`; errorSlot.scrollIntoView({ behavior:'smooth', block:'center' }); };
+
+  const serviceChoice = document.getElementById('c-service-choice').value;
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const phone = document.getElementById('c-phone').value.trim();
+  const eventType = document.getElementById('c-event-type').value;
+  const eventDate = document.getElementById('c-event-date').value;
+  const venue = document.getElementById('c-venue').value.trim();
+  const guestCount = document.getElementById('c-guests').value.trim();
+  const stage = document.getElementById('c-stage').value;
+  const budgetRange = document.getElementById('c-budget').value;
+  const comments = document.getElementById('c-comments').value.trim();
+  const consent = document.getElementById('c-consent').checked;
+  const honeypot = document.getElementById('website').value;
+
+  if (!serviceChoice){ showError('Merci de choisir le type d\'accompagnement souhaité.'); return; }
+  if (!name || !email || !phone || !eventType || !eventDate || !venue || !consent){ showError('Merci de remplir tous les champs obligatoires (*) et de cocher la case de consentement.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showError('Merci d\'entrer une adresse courriel valide.'); return; }
+
+  const submitBtn = document.getElementById('orga-submit');
+  submitBtn.disabled = true; submitBtn.textContent = 'Envoi…';
+
+  const payload = { serviceChoice, name, email, phone, eventType, eventDate, venue, guestCount, stage, budgetRange, comments, website: honeypot, formLoadedAt: FORM_LOADED_AT };
+
+  try {
+    const res = await fetch('/.netlify/functions/organisation-quote-request', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.message || 'Erreur lors de l\'envoi.');
+    document.getElementById('orga-form').style.display = 'none';
+    document.getElementById('orga-ref').textContent = `Référence : ${data.quoteRef || '—'}`;
+    document.getElementById('orga-success').style.display = 'block';
+    document.getElementById('orga-success').scrollIntoView({ behavior:'smooth', block:'start' });
+  } catch (err) {
+    console.error('[organisation:submit]', err);
+    showError('Une erreur est survenue lors de l\'envoi. Vous pouvez réessayer, ou nous joindre directement au (819) 678-9242.');
+    submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma demande';
+  }
+});
+
+renderSiteChrome('organisation');
+initReveal();
+</script>
+</body>
+</html>

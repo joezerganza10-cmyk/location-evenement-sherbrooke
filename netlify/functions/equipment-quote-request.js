@@ -125,6 +125,7 @@ function validatePayload(payload){
   const deliveryMode = payload.deliveryMode === 'livraison' ? 'livraison' : 'ramassage';
   const source = singleLine(payload.source, MAX_SHORT) || "Landing /catalogue — Location d'évènement Sherbrooke";
   const wantsDecoration = payload.wantsDecoration === true;
+  const wantsOrganisation = payload.wantsOrganisation === true;
 
   if (!name) return { ok:false, message: 'Le nom est requis.' };
   if (!email || !EMAIL_RE.test(email)) return { ok:false, message: 'Une adresse courriel valide est requise.' };
@@ -133,8 +134,13 @@ function validatePayload(payload){
   if (!eventDate || !isValidISODate(eventDate)) return { ok:false, message: "La date de l'événement est invalide." };
 
   // ---- Équipements ----
-  if (!Array.isArray(payload.items) || !payload.items.length) {
-    return { ok:false, message: 'Au moins un équipement est requis.' };
+  // Au moins un équipement OU une demande de décoration/organisation — une
+  // demande combinée peut porter uniquement sur un service partenaire.
+  if (!Array.isArray(payload.items)) {
+    return { ok:false, message: 'Sélection invalide.' };
+  }
+  if (!payload.items.length && !wantsDecoration && !wantsOrganisation) {
+    return { ok:false, message: 'Au moins un équipement, ou une demande de décoration/organisation, est requis.' };
   }
   if (payload.items.length > MAX_ITEMS) {
     return { ok:false, message: 'Trop d\'équipements dans la demande.' };
@@ -189,7 +195,7 @@ function validatePayload(payload){
 
   return {
     ok: true,
-    clean: { name, email, phone, eventType, eventDate, comments, deliveryMode, deliveryInfo, items, source, wantsDecoration },
+    clean: { name, email, phone, eventType, eventDate, comments, deliveryMode, deliveryInfo, items, source, wantsDecoration, wantsOrganisation },
   };
 }
 
@@ -343,12 +349,14 @@ function buildAdminEmailHtml(p, quoteRef, submittedAt, pricedItems, subtotalCent
       ${row("Type d'événement", p.eventType)}
       ${row("Date de l'événement", p.eventDate)}
       ${row("Décoration souhaitée ?", p.wantsDecoration ? 'Oui — à contacter pour une proposition' : 'Non')}
+      ${row("Organisation souhaitée ?", p.wantsOrganisation ? 'Oui — à orienter vers un partenaire' : 'Non')}
     </table>
+    ${pricedItems.length ? `
     <h3 style="font-size:14px;margin-top:22px;border-bottom:1px solid #e5e0d3;padding-bottom:8px">Équipements demandés</h3>
     ${buildItemsHtml(pricedItems)}
     ${buildSubtotalHtml(subtotalCents)}
     <h3 style="font-size:14px;margin-top:22px;border-bottom:1px solid #e5e0d3;padding-bottom:8px">Ramassage / livraison</h3>
-    ${buildDeliveryHtml(p.deliveryMode, p.deliveryInfo || {})}
+    ${buildDeliveryHtml(p.deliveryMode, p.deliveryInfo || {})}` : '<p style="font-size:13px;color:#8a8474;margin-top:18px">Aucun équipement demandé — service partenaire seulement.</p>'}
     ${p.comments ? `<h3 style="font-size:14px;margin-top:22px;border-bottom:1px solid #e5e0d3;padding-bottom:8px">Commentaires</h3><p style="font-size:14px">${esc(p.comments)}</p>` : ''}
     <table style="border-collapse:collapse;width:100%;margin-top:22px;border-top:1px solid #e5e0d3;padding-top:8px">
       ${row('Source', p.source)}
@@ -366,9 +374,10 @@ function buildClientEmailHtml(p, quoteRef, pricedItems, subtotalCents){
     <p style="font-size:14px;line-height:1.6">Bonjour ${esc(p.name.split(' ')[0] || '')},</p>
     <p style="font-size:14px;line-height:1.6">Merci pour votre demande auprès de <strong>Location d'évènement Sherbrooke</strong>. Voici un résumé :</p>
     <p style="font-family:'Courier New',monospace;font-size:13px;color:#6b6656">Référence : <strong>${esc(quoteRef)}</strong></p>
+    ${pricedItems.length ? `
     <h3 style="font-size:14px;margin-top:18px;border-bottom:1px solid #e5e0d3;padding-bottom:8px">Équipements demandés</h3>
     ${buildItemsHtml(pricedItems)}
-    ${buildSubtotalHtml(subtotalCents)}
+    ${buildSubtotalHtml(subtotalCents)}` : ''}
     <p style="font-size:14px;line-height:1.7;margin-top:20px;padding:14px 16px;background:#faf8f3;border-left:3px solid #c9a463">
       <strong>Important :</strong> cette référence confirme que votre demande est bien <strong>en cours d'examen</strong> — elle ne constitue
       <strong>ni une réservation confirmée, ni une garantie de disponibilité, ni un prix final</strong>. Notre équipe vérifie
