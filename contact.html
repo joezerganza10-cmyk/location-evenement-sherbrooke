@@ -7,63 +7,50 @@
 <meta name="description" content="Contactez Location d'évènement Sherbrooke pour la location d'équipements ou une demande de décoration événementielle à Sherbrooke et en Estrie.">
 <link rel="canonical" href="https://locationevenementsherbrooke.ca/contact">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0}
 *{box-sizing:border-box}
-::selection{background:#BE9B52;color:#fff}
-:root{
-  --ivory:#FAF7F0; --white:#FFFFFF; --anthracite:#2A2825; --anthracite-soft:#635E54;
-  --gold:#B38A3F; --gold-soft:#D9BE86; --gold-deep:#8C6A2B; --line:rgba(42,40,37,.13); --line-soft:rgba(42,40,37,.07);
-}
-body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--anthracite);overflow-x:hidden}
+::selection{background:#c9a463;color:#16140f}
+:root{ --ink:#16140f; --ink-2:#1b1913; --gold:#c9a463; --cream:#f6f2ea; --text-muted:#cfc9bd; --text-dim:#a49e8f; --text-faint:#8a8474; --line:rgba(201,164,99,.18); }
+body{font-family:'Jost',sans-serif;background:var(--ink);color:var(--cream);overflow-x:hidden}
 a{color:inherit}
-h1,h2{font-family:'Playfair Display',serif;font-weight:600;margin:0}
-.eyebrow{font-size:11.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px;font-weight:600}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;background:var(--anthracite);color:var(--ivory);padding:14px 26px;font-size:13px;border-radius:7px;border:none;font-family:'Jost',sans-serif;font-weight:600}
-.btn-gold{background:var(--gold);color:var(--anthracite)}
-.btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border:1.5px solid var(--anthracite);color:var(--anthracite);padding:12.5px 24px;font-size:13px;border-radius:7px;background:none;font-family:'Jost',sans-serif;font-weight:600}
-nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(18px,4vw,48px);height:68px;background:rgba(250,247,240,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.logo-link{display:flex;flex-direction:column;justify-content:center;text-decoration:none;line-height:1.08}
-.logo-text{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(14px,2.1vw,17px);color:var(--anthracite);white-space:nowrap}
-.logo-sub{display:block;font-family:'Jost',sans-serif;font-size:9.5px;letter-spacing:3px;color:var(--gold-deep);font-weight:700;margin-top:2px}
-.nav-center{display:none;gap:clamp(18px,2.4vw,36px);font-size:13.5px;font-weight:500}
-.nav-center a{text-decoration:none;color:var(--anthracite-soft);padding-bottom:3px;border-bottom:2px solid transparent}
-.nav-center a:hover,.nav-center a.is-current{color:var(--anthracite);border-color:var(--gold)}
-.cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--anthracite);color:var(--ivory);border:none;border-radius:999px;padding:9px 16px 9px 14px;font-size:12.5px;font-weight:600;text-decoration:none}
-.cart-btn .count{background:var(--gold);color:var(--anthracite);border-radius:999px;min-width:19px;height:19px;padding:0 5px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
-.menu-toggle{display:none}
-@media (min-width:900px){ .nav-center{display:flex} }
-section{padding:88px clamp(18px,4vw,48px)}
+h1,h2{font-family:'Playfair Display',serif;font-weight:500;margin:0}
+.eyebrow{font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:500}
+.btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none;background:var(--gold);color:var(--ink);padding:16px 32px;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px;border:none;font-family:'Jost',sans-serif;font-weight:500}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid rgba(246,242,234,.35);color:var(--cream);padding:16px 32px;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px clamp(20px,5vw,64px);background:rgba(22,20,15,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;font-size:21px;text-decoration:none}
+.logo b{color:var(--gold);font-style:italic;font-weight:500}
+nav .links{display:flex;gap:clamp(10px,2vw,30px);flex-wrap:wrap;font-size:12.5px}
+nav .links a{text-decoration:none;color:var(--text-muted);border-bottom:1px solid transparent;padding-bottom:3px}
+nav .links a:hover,nav .links a.is-current{color:var(--gold);border-color:var(--gold)}
+section{padding:96px clamp(20px,5vw,64px)}
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:900px;margin:52px auto 0}
-.contact-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:28px 24px;text-align:center}
-.contact-card h4{font-family:'Playfair Display',serif;font-size:16.5px;margin-bottom:10px;font-weight:600}
-.contact-card p{font-size:13.5px;color:var(--anthracite-soft);margin:0 0 16px}
-footer{padding:44px clamp(18px,4vw,48px);border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--anthracite-soft);background:var(--white)}
-footer a{text-decoration:none;color:var(--anthracite-soft);margin:0 10px}
-footer a:hover{color:var(--gold-deep)}
+.contact-card{background:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:28px 24px;text-align:center}
+.contact-card h4{font-family:'Playfair Display',serif;font-size:16.5px;margin-bottom:10px}
+.contact-card p{font-size:13.5px;color:var(--text-dim);margin:0 0 16px}
+footer{padding:50px clamp(20px,5vw,64px);border-top:1px solid rgba(246,242,234,0.08);text-align:center;font-size:13px;color:var(--text-faint)}
+footer a{text-decoration:none;color:var(--text-dim);margin:0 10px}
+footer a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="logo-link" href="/"><span class="logo-text">Location d'évènement</span><span class="logo-sub">SHERBROOKE</span></a>
-  <div class="nav-center">
-    <a href="/catalogue">Catalogue</a>
+  <a class="logo" href="/">Location d'évènement <b>Sherbrooke</b></a>
+  <div class="links">
+    <a href="/">Accueil</a>
+    <a href="/#catalogue">Catalogue</a>
     <a href="/decoration">Décoration</a>
-    <a href="/#comment-louer">Comment louer</a>
     <a href="/contact" class="is-current">Contact</a>
   </div>
-  <a class="cart-btn" href="/catalogue#panier">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/><path d="M6 6L5 2H2"/></svg>
-    Ma soumission <span class="count" id="cart-count">0</span>
-  </a>
 </nav>
 
 <section style="text-align:center">
   <div class="eyebrow">Location d'évènement Sherbrooke</div>
-  <h1 style="font-size:clamp(27px,3.6vw,42px)">Parlons de votre événement</h1>
-  <p style="color:var(--anthracite-soft);max-width:520px;margin:14px auto 0;line-height:1.6;font-size:14.5px">Pour une location d'équipements, une demande de décoration ou toute autre question, notre équipe vous répond rapidement.</p>
+  <h1 style="font-size:clamp(28px,4vw,46px)">Parlons de votre événement</h1>
+  <p style="color:var(--text-dim);max-width:520px;margin:14px auto 0;line-height:1.6;font-size:14.5px">Pour une location d'équipements, une demande de décoration ou toute autre question, notre équipe vous répond rapidement.</p>
 
   <div class="contact-grid">
     <div class="contact-card">
@@ -79,23 +66,17 @@ footer a:hover{color:var(--gold-deep)}
     <div class="contact-card">
       <h4>Demande rapide</h4>
       <p>Catalogue d'équipements ou décoration sur mesure.</p>
-      <a class="btn btn-gold" href="/catalogue#demande-soumission">Demander une soumission</a>
+      <a class="btn" href="/#demande-soumission">Demander une soumission</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div>Location d'évènement Sherbrooke, Sherbrooke, QC</div>
-  <div style="margin-top:14px">
-    <a href="/">Accueil</a>·<a href="/catalogue">Catalogue</a>·<a href="/decoration">Décoration</a>·<a href="/contact">Contact</a>
+  <div>Location d'évènement Sherbrooke, QC</div>
+  <div style="margin-top:16px">
+    <a href="/">Accueil</a>·<a href="/#catalogue">Catalogue</a>·<a href="/decoration">Décoration</a>·<a href="/contact">Contact</a>
   </div>
 </footer>
 
-<script>
-try {
-  const cart = JSON.parse(sessionStorage.getItem('eq906r_cart_v1') || '[]');
-  document.getElementById('cart-count').textContent = cart.reduce((n,c)=>n+c.qty,0);
-} catch(e){}
-</script>
 </body>
 </html>
