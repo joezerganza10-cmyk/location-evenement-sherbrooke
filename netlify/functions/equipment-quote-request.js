@@ -249,10 +249,9 @@ function computeServerPricing(items){
  * en direct, equipment_item_id pourra être rempli ici sans changer le
  * schéma (la colonne `code` ajoutée dans 0001 fait déjà le pont).
  */
-async function saveQuoteToDatabase(payload, quoteRef){
+async function saveQuoteToDatabase(payload, quoteRef, priced, subtotalCents){
   const startDate = payload.deliveryMode === 'ramassage' ? payload.deliveryInfo.pickupDate : payload.deliveryInfo.deliveryDate;
   const endDate = payload.deliveryInfo.returnDate;
-  const { priced, subtotalCents } = computeServerPricing(payload.items);
 
   const quoteRows = await supabaseRequest('equipment_quotes', {
     method: 'POST',
@@ -447,19 +446,32 @@ exports.handler = async (event) => {
   const submittedAt = new Date().toLocaleString('fr-CA', { timeZone: 'America/Toronto' });
 
   try {
-    // 1. ENREGISTREMENT SUPABASE — désormais obligatoire (Phase 3) : sans
-    //    cette ligne, la demande n'existerait nulle part pour l'admin.
-    //    Le prix de chaque ligne est recalculé ICI, côté serveur, à partir
-    //    du catalogue (jamais depuis une valeur envoyée par le navigateur).
-    const { priced, subtotalCents } = await saveQuoteToDatabase(payload, quoteRef);
+    // 0. Prix recalculé ICI, côté serveur, à partir du catalogue (jamais
+    //    depuis une valeur envoyée par le navigateur) — toujours disponible,
+    //    même si Supabase est indisponible (voir point 1 ci-dessous).
+    const { priced, subtotalCents } = computeServerPricing(payload.items);
 
-    // 2. EMAIL ADMIN — obligatoire également (notification immédiate).
+    // 1. EMAIL ADMIN — obligatoire (c'est la source fiable de la demande
+    //    tant que Supabase n'est pas garanti disponible — voir point 2).
     const adminTo = process.env.EQUIPMENT_QUOTE_EMAIL || process.env.RESERVATIONS_EMAIL || 'reservations@salle906galtest.ca';
     await sendResendEmail({
       to: adminTo,
       subject: `Soumission équipements ${quoteRef} — ${singleLine(payload.name, 80)}`,
       html: buildAdminEmailHtml(payload, quoteRef, submittedAt, priced, subtotalCents),
     });
+
+    // 2. ENREGISTREMENT SUPABASE — best-effort (n'affecte jamais le succès
+    //    côté client). Repassé de "obligatoire" à "best-effort" le temps
+    //    qu'une erreur d'horodatage JWT côté Supabase (projet récemment
+    //    réactivé après pause) se résorbe ; l'email admin reste alors la
+    //    seule source de vérité pour ces demandes-là. Remettre en bloquant
+    //    une fois Supabase confirmé stable, si le suivi admin structuré
+    //    (statuts, assignation) en dépend.
+    try {
+      await saveQuoteToDatabase(payload, quoteRef, priced, subtotalCents);
+    } catch (err) {
+      console.warn('[equipment-quote-request] Supabase indisponible (best-effort) —', err.message);
+    }
 
     // 3. EMAIL CLIENT — accusé de réception, best-effort (n'affecte jamais le succès).
     try {
